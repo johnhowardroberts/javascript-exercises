@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Build your own rocket!</title>
+    <!-- Commenting out css source to keep it to one file -->
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <style>
+      /* Basic styling for page and form */
+      #orderForm {
+        margin: 10px;
+        padding: 10px;
+        width: 80%;
+        min-width: 300px;
+        border: 1px solid black;
+        font-family: arial;
+      }
+
+      h1 {
+        font-family: arial;
+        font-size: 18px;
+        text-align: center;
+        margin: 10px;
+        padding: 10px;
+        width: 80%;
+        border: 1px solid black;
+      }
+
+      p {
+          font-family: arial;
+          font-size: 18px;
+          text-align: center;
+          margin: 10px;
+          padding: 10px;
+          width: 80%;
+          /* border: 1px solid black; */
+      }
+
+      input {
+        border: 1px solid gray;
+        padding: 10px;
+        margin: 5px;
+      }
+
+      button {
+        padding: 10px;
+        margin: 5px;
+      }
+
+      select {
+        min-width: 150px;
+        height: 30px;
+        padding: 10px;
+        margin: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Build your own rocket</h1>
+    <!-- Create a form to ask and take in user input on the three questions. ID attribute for CSS. -->
+    <form id="orderForm">
+      <!-- First question, give ID of 'rocketName' to be referenced by script for form validation and submission -->
+      What do you want to call your Rocket?* <input type="text" id="rocketName"><br>
+      <!-- Second question, give ID of 'rocketSize' to be referenced by script for form validation and submission -->
+      How big do you want your rocket to be, in metres?* <input type="text" id="rocketSize"><br>
+      <!-- Third question, give ID of 'isSpaceRocket' to be referenced by script for form submission and to return boolean based on selection -->
+      Do you need it to go to space?*
+      <!-- Dropdown menu to restrict selection to YES or NO, so we can assign boolean, and reference value when changing HTML content on form submission -->
+        <select id="isSpaceRocket">
+          <option id="yes" value="it's going to">Yes</option>
+          <option id="no" value="it doesn't need to go to">No</option>
+        </select>
+        <br>
+
+      <!-- Submit button which triggers the formValidation() function. ID of button used for reference to hide submit button on form submission -->
+      <input type="button" id="button" value="Submit Order" onclick="formValidation();">
+
+    </form>
+
+    <!-- Empty paragraph element that we will populate using innerHTML property upon form submission -->
+    <p id="confirmationText"></p>
+
+    <script type="text/javascript">
+    // function which is triggered by the onclick event in the form
+      function formValidation() {
+        // Initialize variable 'name' which assigned the value of ID 'rocketName'
+        var name = document.getElementById('rocketName').value;
+        // Initialize variable 'size' which assigned the value of ID 'rocketSize'
+        var size = document.getElementById('rocketSize').value;
+
+        // Validation begins here
+        // If name or size is empty
+        if (name === '' || size === '') {
+          // Alert user via popup to fill out all fields, and return user to form
+          alert("Please fill out all fields.");
+          return false;
+          // if the field check passes, pass 'size' into the isNaN() function to check if it is a number
+        } else if (isNaN(size)) {
+          // if the function returns 'true', then alert user via popup to enter a number
+          alert("Please enter rocket size using only numbers.");
+        } else {
+          // if the number check passes, then call orderConfirmation() function to submit the form
+          orderConfirmation();
+        }
+      }
+
+      // function to submit the form, print the result to the customer, and log messages to the console
+      function orderConfirmation() {
+        // Initialize variable 'sentence' which we use to reference the empty paragraph element in the browser, and add text to via innerHTML
+        var sentence = document.getElementById('confirmationText');
+        // Initialize variable 'name' which we use to reference the 'rocketName' element when changing 'sentence' HTML
+        var name = document.getElementById('rocketName');
+        // Initialize variable 'size' which we use to reference the value of the 'rocketSize' element when changing 'sentence' HTML
+        var size = document.getElementById('rocketSize').value;
+        // Initialize variable 'name' which we use to reference the 'isSpaceRocket' element for two purposes:
+        // 1) reference its value to insert correct string when changing 'sentence' HTML, and
+        // 2) provide variable for spaceBoolean variable to reference for boolean assignment
+        var space = document.getElementById('isSpaceRocket')
+        // Initialize spaceBoolean variable and set to a default
+        var spaceBoolean = false;
+        // reference the value of 'space' > if user selected 'yes', we change the value of spaceBoolean to true
+        if (space.value === "it's going to") {
+          spaceBoolean = true;
+        }
+
+        // ** UNCOMMENT BUTTON LINES TO ADD FUNCTIONALITY **
+        // initialize variable 'button' which we use to reference the submission button
+        // when form is submitted, hide the button
+        // button = document.getElementById('button');
+        // button.style.visibility = "hidden";
+
+        //  Change the HTML content of the <p> element with ID 'confirmationText', which will display to the user the details of their order.
+        sentence.innerHTML = "Thanks for your order! Your rocket will be called "
+        + name.value + ", it will be " + size + " metres long, and " + space.value + " space."
+
+        // Commented out the below console log, was using it when testing isNaN functionality. Could restore it if needed.
+        // console.log("Form validated? " + isNaN(size));
+        // Logging the name of the rocket to the console
+        console.log("Rocket name: " + name.value);
+        // Logging the size of the rocket to the console
+        console.log("Rocket Size: " + size);
+        // Logging whether the rocket needs to be built to go to space
+        console.log("Going to space? " + spaceBoolean);
+      }
+
+    </script>
+  </body>
+</html>

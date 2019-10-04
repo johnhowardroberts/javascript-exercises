@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Build a Shape</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu+Mono&display=swap" rel="stylesheet">
+
+    <style>
+
+      body {
+        font-family: "Ubuntu Mono";
+      }
+
+      div {
+        /* font-family: "Ubuntu Mono"; */
+        line-height: 0%;
+        margin: 10px;
+        padding: 10px;
+        width: 80%;
+        border: 1px solid red;
+        /* text-align: center; */
+      }
+
+      #shapeBuilder {
+        margin: 10px;
+        padding: 10px;
+        width: 80%;
+        min-width: 300px;
+        border: 1px solid black;
+      }
+
+      h1 {
+        font-size: 18px;
+        text-align: center;
+        margin: 10px;
+        padding: 10px;
+        width: 80%;
+        border: 1px solid black;
+      }
+
+      input {
+        border: 1px solid gray;
+        padding: 10px;
+        margin: 5px;
+      }
+
+      button {
+        padding: 10px;
+        margin: 5px;
+      }
+
+      select {
+        min-width: 150px;
+        height: 30px;
+        padding: 10px;
+        margin: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Print a shape.</h1>
+
+    <form id="shapeBuilder">
+      Rows:  <input type="text" id="shapeRows">
+      Columns: <input type="text" id="shapeColumns">
+      Shape:  <select id="shapeType">
+                <option id="solidSquare" value="solidSquare">Solid Square</option>
+                <option id="hollowSquare" value="hollowSquare">Hollow Square</option>
+                <option id="hourglass" value="hourglass">Hourglass</option>
+                <option id="xbox" value="xbox">X Box</option>
+              </select>
+      <br>
+
+      <input type="button" id="button" value="Submit" onclick="printShape();">
+
+    </form>
+
+    <div id="printOut"></div>
+
+    <script type="text/javascript">
+
+      function printShape() {
+        // clears the content of the printOut div
+        document.getElementById("printOut").innerHTML = "";
+        // variables to create grid of rows and columns
+        var rows = document.getElementById('shapeRows').value;
+        var columns = document.getElementById('shapeColumns').value;
+        // variable that contains the shape selected by the user
+        var shape = document.getElementById('shapeType').value;
+
+        // var nodeO = document.createTextNode("\u00A0");
+
+        // create element to append characters to for display on screen
+        var divElement = document.getElementById('printOut');
+
+// // *****************************************************************
+// // ****************      SOLID SQUARE       ************************
+// // *****************************************************************
+
+        if (shape === "solidSquare") {
+          // outer loop, controls which row we are working in, top to bottom
+          for (rowIndex = 1; rowIndex <= rows; rowIndex++) {
+            // paragraph element for current row
+            var paraElement = document.createElement("p");
+            paraElement.style.fontFamily = "Courier";
+            // inner loop, controls which column we are working in, left to right
+            for (colIndex = 1; colIndex <= columns; colIndex++) {
+              // one text node required for this shape, X
+              var nodeX = document.createTextNode("X");
+              // append the node to this row's paragraph
+              paraElement.appendChild(nodeX);
+            }
+            // after loop is finished, append the paragraph to the div displayed on screen
+            divElement.appendChild(paraElement);
+          }
+        }
+
+// // *****************************************************************
+// // ****************      HOLLOW SQUARE      ************************
+// // *****************************************************************
+
+        else if (shape === "hollowSquare") {
+          // outer loop, controls which row we are working in, top to bottom
+          for (rowIndex = 1; rowIndex <= rows; rowIndex++) {
+            // paragraph element for current row
+            var paraElement = document.createElement("p");
+            paraElement.style.fontFamily = "Courier";
+            // inner loop, controls which column we are working in, left to right
+            for (colIndex = 1; colIndex <= columns; colIndex++) {
+              if (
+                   // covers left column
+                   colIndex == 1 ||
+                   // covers right column
+                   colIndex == columns ||
+                   // covers top row
+                   rowIndex == 1 ||
+                   // covers bottom row
+                   rowIndex == rows
+                ) {
+                  // text node X
+                  var nodeX = document.createTextNode("X");
+                  // append the node to this row's paragraph
+                  paraElement.appendChild(nodeX);
+              } else {
+                // text node space
+                var nodeSpace = document.createTextNode("\u00A0");
+                // append the node to this row's paragraph
+                paraElement.appendChild(nodeSpace);
+              }
+            }
+            // after loop is finished, append the paragraph to the div displayed on screen
+            divElement.appendChild(paraElement);
+          }
+        }
+
+// *****************************************************************
+// ************************   HOURGLASS   **************************
+// *****************   ONLY TAKES A ROWS VALUE  ********************
+// *****************************************************************
+
+
+// *****************************************************************
+// ****************  TOP HALF OF THE HOURGLASS  ********************
+// *****************************************************************
+
+        else if (shape === "hourglass") {
+
+          // set spaces to print for first row
+          var spacesToPrint = rows-1;
+          // set Xs to print for first row
+          var xToPrint = (rows*2)-1;
+
+          // outer loop controlling current row
+          for(rowIndex = 1; rowIndex <= rows; rowIndex++) {
+            // paragraph element for current row
+            var paraElement = document.createElement("p");
+            paraElement.style.fontFamily = "Courier";
+            // inner loop controlling how many spaces to print on current row
+            for(colIndex = rows; colIndex <= spacesToPrint; colIndex++) {
+              // text node space
+              var nodeSpace = document.createTextNode("\u00A0");
+              // append the node to this row's paragraph
+              paraElement.appendChild(nodeSpace);
+            }
+            // inner loop controlling how many Xs to print on current row
+            for(colIndex = 1; colIndex <= xToPrint; colIndex++) {
+              // text node X
+              var nodeX = document.createTextNode("X");
+              // append the node to this row's paragraph
+              paraElement.appendChild(nodeX);
+            }
+            // after loop is finished, append the paragraph to the div displayed on screen
+            divElement.appendChild(paraElement);
+            // increase / decrease the number of chars to print on next row
+            xToPrint -= 2;
+            spacesToPrint += 1;
+          }
+
+// *****************************************************************
+// **************** BOTTOM HALF OF THE HOURGLASS  ******************
+// *****************************************************************
+
+          // reset spaces to print for first row
+          var spacesToPrint = rows-1;
+          // reset Xs to print for first row
+          var xToPrint = 1;
+
+          // outer loop controlling current row
+          for(rowIndex = 1; rowIndex <= rows; rowIndex++) {
+            // paragraph element for current row
+            var paraElement = document.createElement("p");
+            paraElement.style.fontFamily = "Courier";
+            // inner loop controlling how many spaces to print on current row
+            for(colIndex = 1; colIndex <= spacesToPrint; colIndex++) {
+              // text node space
+              var nodeSpace = document.createTextNode("\u00A0");
+              // append the node to this row's paragraph
+              paraElement.appendChild(nodeSpace);
+            }
+            // inner loop controlling how many Xs to print on current row
+            for(colIndex = 1; colIndex <= xToPrint; colIndex++) {
+              // text node X
+              var nodeX = document.createTextNode("X");
+              // append the node to this row's paragraph
+              paraElement.appendChild(nodeX);
+            }
+            // after loop is finished, append the paragraph to the div displayed on screen
+            divElement.appendChild(paraElement);
+            // increase / decrease the number of chars to print on next row
+            xToPrint += 2;
+            spacesToPrint -= 1;
+          }
+
+// *****************************************************************
+// ************************   X BOX   ******************************
+// *****************   ONLY TAKES A ROWS VALUE  ********************
+// *****************************************************************
+
+          } else if (shape === "xbox") {
+              // outer loop for current row
+              for (rowIndex = 0; rowIndex < rows; rowIndex++) {
+                // paragraph element for current row
+                var paraElement = document.createElement("p");
+                paraElement.style.fontFamily = "Courier";
+                // inner loop to print on current row
+                for (colIndex = 0; colIndex < rows; colIndex++) {
+                  if (
+                      // covers top row
+                      rowIndex == 0 ||
+                      // covers bottom row
+                      rowIndex == rows - 1 ||
+                      // covers left column
+                      colIndex == 0 ||
+                      // covers right column
+                      colIndex == rows - 1 ||
+                      // covers diagonal top left to bottom right
+                      rowIndex == colIndex ||
+                      // covers diagonal top right to bottom left
+                      rowIndex == rows - 1 - colIndex) {
+                        // text node X
+                        var nodeX = document.createTextNode("X");
+                        // append the node to this row's paragraph
+                        paraElement.appendChild(nodeX);
+                      } else {
+                        // text node space
+                        var nodeSpace = document.createTextNode("\u00A0");
+                        // append the node to this row's paragraph
+                        paraElement.appendChild(nodeSpace);
+                      }
+
+                }
+                // after loop is finished, append the paragraph to the div displayed on screen
+                divElement.appendChild(paraElement);
+              }
+          }
+        // else if hourglass square {}
+        // else if circle {}
+      }
+    </script>
+  </body>
+</html>
