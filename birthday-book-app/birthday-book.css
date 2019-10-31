@@ -1,0 +1,23 @@
+body {
+  background-color: #f2f2f2;
+}
+
+h1 {
+  padding: 10px;
+  text-align: center;
+}
+
+.form-inline, .results-area, .clear-book {
+  border-radius: 7px;
+  background-color: white;
+  border: 1px solid gray;
+  padding: 20px;
+}
+
+.form-group {
+  padding: 7px;
+}
+
+.tableHeader {
+  color: red;
+}

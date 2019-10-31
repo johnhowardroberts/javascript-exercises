@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Birthday Book</title>
+  <!-- LINK TO ALL STYLESHEETS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+  <link rel="stylesheet" type="text/css" href="birthday-book.css">
+
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>Birthday Book</h1>
+
+    <!-- ADD FORM TO ENTER BIRTHDAYS -->
+    <form class="form-inline">
+      <h3>Add somebody to your birthday book</h3>
+      <br>
+      <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input type="text" class="form-control" id="firstName" placeholder="e.g. John">
+      </div>
+      <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input type="text" class="form-control" id="lastName" placeholder="e.g. Doe">
+      </div>
+      <div class="form-group">
+        <label for="dateOfBirth">Date of Birth</label>
+        <input type="date" class="form-control" id="dateOfBirth" placeholder="dateofBirth">
+      </div>
+      <button type="submit" id="submitButton" class="btn btn-default">Submit</button>
+      <br>
+      <br>
+      <!-- Empty div for submission confirmation -->
+      <div id="entryConfirmationMessage"></div>
+    </form>
+    <br>
+
+    <!-- FORM FOR SEARCHING DATABASE -->
+    <form class="form-inline">
+      <h3>Search for somebody in your birthday book</h3>
+      <br>
+      <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input type="text" class="form-control" id="searchFirstName" placeholder="e.g. John">
+      </div>
+      <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input type="text" class="form-control" id="searchLastName" placeholder="e.g. Doe">
+      </div>
+      <div class="form-group">
+        <label for="dateOfBirth">Date of Birth</label>
+        <input type="date" class="form-control" id="searchDateOfBirth" placeholder="dateofBirth">
+      </div>
+      <button type="submit" id="searchButton" class="btn btn-default">Search</button>
+      <br>
+    </form>
+    <br>
+
+    <!-- ADD AREA TO DISPLAY SEARCH RESULTS -->
+    <div class="results-area" id="displayResult">
+      <h3>Search Results</h3>
+      <br>
+      <div id="resultsDisplay">This is where results go when search button clicked</div>
+    </div>
+    <br>
+    <!-- ADD BUTTON TO CLEAR BIRTHDAY BOOK -->
+    <div class="clear-book" id="clearBook">
+      <h3>Delete all entries from your birthday book</h3>
+      <br>
+      <button type="submit" id="deleteAllEntriesButton" class="btn btn-default">Delete</button>
+    </div>
+  </div>
+
+  <!-- LINK TO SCRIPT -->
+  <script type="text/javascript" src="birthday-book-script.js"></script>
+</body>
+
+</html>
