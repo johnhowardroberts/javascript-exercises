@@ -33,7 +33,6 @@ const entries = [
 addEntryButton.addEventListener("click", function(ev) {
   ev.preventDefault();
   addEntry();
-  console.log("Entry added");
 });
 
 // SEARCH ENTRIES
